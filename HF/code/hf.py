@@ -5,11 +5,6 @@
 #~ 
 #~ Code based on : http://joshuagoings.com/2013/04/24/hartree-fock-self-consistent-field-procedure/
 
-
-from __future__ import division
-import sys  
-import math  
-import csv
 import numpy as np  
 import functions as func
 import coreH as H
