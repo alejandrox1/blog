@@ -29,7 +29,7 @@ def eint(a,b,c,d):
 ############################   FUNCTIONS ( hf.py )   ##############################
 def tei(twoe, a,b,c,d):
 	"""Return the value of the two electron integral
-	Example: (12\vert 34) = tei(1,2,3,4)
+	Example: (12 | 34) = tei(1,2,3,4)
 	We use the chemist notation for the scf procedure.
 
 	twoe is a fictionary containing the necessary two electron
@@ -37,37 +37,31 @@ def tei(twoe, a,b,c,d):
 	"""
 	return twoe.get(eint(a,b,c,d),0.0)
 
-def makefock(Hcore, P, twoe):
+def makefock(Hcore, D, twoe):
 	"""Make Fock matrix."""
-	if Hcore.shape[0]!=Hcore.shape[1]:
-		return -1
-
 	F = np.zeros((Hcore.shape[0], Hcore.shape[1]))
 	for i in range(Hcore.shape[0]):
 		for j in range(Hcore.shape[1]):
 			F[i,j] = Hcore[i,j]
 			
-			for k in range(P.shape[0]):
-				for l in range(P.shape[1]):
-					F[i,j] += P[k,l]*(tei(twoe,i+1,j+1,k+1,l+1)
+			for k in range(D.shape[0]):
+				for l in range(D.shape[1]):
+					F[i,j] += D[k,l]*(tei(twoe,i+1,j+1,k+1,l+1)
 						-0.5*tei(twoe,i+1,k+1,j+1,l+1))
 	return F
 
-def makedensity(C,P,Nelec):
+def makedensity(C,D,Nelec):
         """Make Density matrix and store the old one to test for
         convergence.
         """
-        if P.shape[0]!=P.shape[1]:
-                return -1
-
-        OLDP = np.zeros((P.shape[0],P.shape[1]))
-        for mu in range(P.shape[0]):
-                for nu in range(P.shape[1]):
-                        OLDP[mu,nu] = P[mu,nu]
-                        P[mu,nu] = 0.0
+        OLDD = np.zeros((D.shape[0],D.shape[1]))
+        for mu in range(D.shape[0]):
+                for nu in range(D.shape[1]):
+                        OLDD[mu,nu] = D[mu,nu]
+                        D[mu,nu] = 0.0
                         for m in range(Nelec//2):
-                                P[mu,nu] += 2*C[mu,m]*C[nu,m]
-        return P, OLDP
+                                D[mu,nu] += 2*C[mu,m]*C[nu,m]
+        return D, OLDD
 
 
 def fprime(X,F):
@@ -82,25 +76,21 @@ def diagonalize(M, S_half):
         C = np.dot(S_half, Cprime)  
         return e,C
 
-def deltap(P, OLDP):
+def deltaD(D, OLDD):
 	"""Calculate the change in the density matrix."""
-	if (P.shape[0]!=OLDP.shape[0]) and (P.shape[1]!=OLDP.shape[1]):
-		return -1
 	delta = 0.0
-	for i in range(P.shape[0]):
-		for j in range(P.shape[1]):
-			delta += ((P[i,j] - OLDP[i,j])**2.0)
+	for i in range(D.shape[0]):
+		for j in range(D.shape[1]):
+			delta += ((D[i,j] - OLDD[i,j])**2.0)
 		
 	return (np.sqrt(delta/4.0))
 
-def currentenergy(P, Hcore, F):
+def currentenergy(D, Hcore, F):
 	"""Calculate energy at each iteration."""
-	if P.shape[0]!=P.shape[1]:
-                return -1
 	EN = 0.0
-	for mu in range(P.shape[0]):
-		for nu in range(P.shape[1]):
-			EN += 0.5*P[mu,nu]*(Hcore[mu,nu] + F[mu,nu])
+	for mu in range(D.shape[0]):
+		for nu in range(D.shape[1]):
+			EN += 0.5*D[mu,nu]*(Hcore[mu,nu] + F[mu,nu])
 	return EN
 
 

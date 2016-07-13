@@ -610,11 +610,11 @@ which can be written as
 \sum_\nu F_{\mu\nu} C_{\nu i} = \epsilon_i \sum_\nu S_{\mu\nu} C_{\nu i}
 \end{equation}
 
-$S$ is the overlap matrix
+Here $S$ is the overlap matrix
 $$
 S_{\mu\nu} = \int d\vec{x_1} \, \chi^{*}_{\mu}(\vec{x_1}) \chi_{\nu}(\vec{x_1})
 $$
-where, $F$ is the Fock matrix 
+$F$ is the Fock matrix 
 $$
  F_{\mu\nu} = \int d\vec{x_1} \, \chi^{*}_{\mu}(\vec{x_1}) f(\vec{x_1}) \chi_{\nu}(\vec{x_1})
 $$
@@ -626,6 +626,11 @@ $$
 =  h(\vec{x_1})\chi_i(\vec{x_1}) + \sum \left(\chi_i(\vec{x_1}) \int d\vec{x_2} \, \Big|\chi_j(\vec{x_2}) \frac{1}{r_12}\Big| -
 \chi_j(\vec{x_1})\int d\vec{x_2} \, \chi^{*}_{j}(\vec{x_2})\chi_i(\vec{x_2})\frac{1}{r_{12}} \right) 
 $$
+In order to obtain these we will read them from text files.
+The overlap matrix can be found in 's.dat', the nuclear repulsion integrals in 'enuc.dat'.
+The rest of the information needed to construct the matrix \textbf{F} can be obtained from the kinetic energy integrals 't.dat', the potential energy integrals 'v.dat', and the two electron integrals 'eri.dat'.
+
+Calculating these quantities will be the subject of a later post.
 
 \subsubsection{Orthogonalization}
 Our first objective is to transform equation(\ref{HFR}) into an eigenvalue problem, so we need to find a transformation that will do just that.
@@ -646,4 +651,93 @@ $$
 S^{-1/2} = L_S \Lambda^{-1/2} L^{T}_{S}
 $$
 
+From equation(\ref{HFR}) assume that there exists a new matrix \textbf{C}, such that
+$$
+C^' = X^{-1} C
+$$
+and 
+$$
+C = X C^'
+$$
+so that equation(\ref{HFR}) becomes
+$$
+F X C^' = SXC^' \epsilon
+$$
+If we multiply both sides by $X^{-1}$ and define
+$$
+F^' \equiv X^{-1} F X
+$$
+
+then we can write equation(\ref{HFR}) as 
+$$
+F^' C^' = C^' \epsilon
+$$
+
+\subsubsection{Self-Consistent Field Iteration}
+\begin{itemize}
+\item Begin by calculating the Fock matrix:
+\begin{verbatim}
+F = func.makefock(H.Hcore, D, H.twoe)
+\end{verbatim}
+$$
+F_{\mu\nu} = H_{\mu\nu} + \sum_{\lambda\sigma} D_{\lambda\sigma} \left( 2 (\mu\nu |\lambda\sigma) - (\mu\lambda |\nu\sigma)\right)
+$$
+
+\item Transform the Fock matrix into the orthonormal AO basis:
+\begin{verbatim}
+Fprime = func.fprime(S_half, F)
+\end{verbatim}
+$$
+F^' = \tilde{S}^{-1/2} F S^{-1/2}
+$$
+$\tilde{S}^{-1/2}$ is the transpose of matrix $S^{-1/2}$.
+
+\item Diagonalize the transformed Fock matrix:
+\begin{verbatim}
+E, Cprime = np.linalg.eigh(Fprime)
+\end{verbatim}
+$$
+F^' C^' = C^' \epsilon
+$$
+
+\item Transform the resulting eigenvectors into the original (non-orthogonal) basis:
+\begin{verbatim}
+C = np.dot(S_half, Cprime)
+\end{verbatim}
+$$
+C = S^{-1/2} C^'
+$$
+
+\item Construct the new density matrix from $C$:
+\begin{verbatim}
+D, OLDD = func.makedensity(C, D, H.Nelec)
+\end{verbatim}
+$$
+D_{\mu\nu} = \sum^{occ}_i C^{i}_{\mu} C^{i}_{\nu}
+$$
+where $i$ indexes the columns of $C$ and the summation includes the occupied spatial molecular orbitals.
+
+\item Compute the new Electronic and total energies:
+\begin{verbatim}
+EN    = func.currentenergy(D, H.Hcore, F)
+OUTPUT.write("\nTOTAL E(SCF) = {}\n".format(EN + H.Enuc))
+\end{verbatim}
+$$
+E_e = \sum^{AO}_{\mu\nu} D_{\mu\nu} \left( H_{\mu\nu} + F_{\mu\nu} \right)
+$$
+
+\item Test convergence of the density matrix
+\begin{verbatim}
+delta = func.deltap(D, OLDD)
+deltaE = (EN - oldEN)
+\end{verbatim}
+$$
+rms_D = \left[ \sum^{AO}_{\mu\nu} \left( D^{i}_{\mu\nu} - D^{i-1}_{\mu\nu} \right) \right]^{-1/2} < \delta_1
+$$
+$$
+\Delta E = E^{i}_{e} - E^{i-1}_{e} < \delta_2
+$$
+$i$ denotes the iteration.
+
+\end{itemize}
 \end{document}

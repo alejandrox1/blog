@@ -23,22 +23,25 @@ S_half    = np.dot(Lvec, np.dot(Sval_diag, Lvec.T))
 
 
 # This is the main loop. See Szabo and Ostlun page 146.
-P = np.zeros((H.dim, H.dim))            	# density matrix
+D = np.zeros((H.dim, H.dim))            	# density matrix
 G = np.zeros((H.dim, H.dim))			# used to make the fock matrix
 
-delta           = 1.0
-convergence     = 1e-8
+deltaD          = 1.0
+deltaE		= 1.0
+EN		= 0.0
+convergenceD    = 1e-8
+convergenceE    = 1e-8
 iteration       = 0
 OUTPUT = open('output.out', 'w')
 OUTPUT.write("Core Hamiltonias:\n {}\n".format(H.Hcore))
-while delta>convergence:
+while (deltaD>convergenceD) or (deltaE>convergenceE):
 	# Header
 	iteration += 1
 	OUTPUT.write('='*100 + '\n')
 	OUTPUT.write('='+' '*48+str(iteration)+' '*48+'='+'\n')
 	OUTPUT.write('='*100 + '\n')	
 
-	F = func.makefock(H.Hcore, P, H.twoe)						# Fock matrix
+	F = func.makefock(H.Hcore, D, H.twoe)						# Fock matrix
 	OUTPUT.write("\nFock Matrix:\n {}\n".format(H.Hcore))	
 	
 	Fprime = func.fprime(S_half, F) 						# Fock matrix in AO basis
@@ -49,13 +52,16 @@ while delta>convergence:
 	E, C = func.diagonalize(Fprime, S_half)						# change basis
 	OUTPUT.write("\nEigenvectors of the Fock Matrix:\n {}\n".format(C))
 
-	P, OLDP = func.makedensity(C, P, H.Nelec)					# new density matrix
-	OUTPUT.write("\nDensity Matrix:\n {}\n".format(P))
+	D, OLDD = func.makedensity(C, D, H.Nelec)					# new density matrix
+	OUTPUT.write("\nDensity Matrix:\n {}\n".format(D))
 
-	delta = func.deltap(P, OLDP)			
-	EN    = func.currentenergy(P, H.Hcore, F)
-	OUTPUT.write("\nTOTAL E(SCF) = {}\n".format(EN + H.Enuc))
-	OUTPUT.write("Change in the Density Matrix = {}\n\n\n".format(delta))
+	oldEN  = EN 
+	EN     = func.currentenergy(D, H.Hcore, F)
+	deltaD = func.deltaD(D, OLDD)
+	deltaE = (EN - oldEN)
+	OUTPUT.write("\nChange in the Density Matrix = {}\n".format(deltaD))
+	OUTPUT.write("TOTAL E(SCF) = {}\n".format(EN + H.Enuc))
+	OUTPUT.write("Change in E(SCF) = {}\n\n\n".format(deltaE))
 
 OUTPUT.close()
 print("TOTAL E(SCF) = {}\n".format(EN + H.Enuc))
