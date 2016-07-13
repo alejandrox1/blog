@@ -1,0 +1,10 @@
+Overlap integrals	    : s.dat
+Kinetic energy integrals    : t.dat
+Potential energy integrals  : v.dat
+Nuclear repulsion	    : enuc.dat
+Elecron repulsion integrals : eri.dat
+
+values were taken from Gaussian09 for HeH+ at a bond length of 0.9295 Angstrom with an STO-3G basis set. 
+
+Helium hydride ion : https://en.wikipedia.org/wiki/STO-nG_basis_sets
+STO-nG basis sets : https://en.wikipedia.org/wiki/Helium_hydride_ion
