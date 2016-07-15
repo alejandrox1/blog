@@ -11,6 +11,7 @@
 \usepackage{braket}								%%%%%%%%%%%%%%%%%%% BRKET NOTATION
 \usepackage{epigraph}
 \usepackage{breqn}
+\usepackage{hyperref}
 
 \epigraphsize{\large}% Default
 \setlength\epigraphwidth{12cm}
@@ -33,10 +34,15 @@
 
 
 \section{Introduction}
+In order to do quantum mechanics there is a very basic principle underlying the mathematical description of the subject which relies on the decomposition of quantities into a given basis.
+
+The main point from this section is this: vectors can be represented in different basis. Vectors are things, ideas and choosing a different basis for their representation is solely a matter of what language you want to speak.
+
 \subsection{Vectors}
-Grab your pencil a piece of paper for we will draw a vector!
-We could start by imagining a Cartesian plane, with an x axis that runs from side to side, and a y axis that runs from the top of the piece of paper to the bottom of the piece of paper.
-Now, a vector can be drawn by specifying the components along the x and y axis as shown in figure(\ref{2d}).
+Grab your pencil a piece of paper, we will draw a vector!
+We could start by imagining a Cartesian plane.
+In this cartesian plane there will be an x axis that runs from side to side, and a y axis that runs from the top of the paper to the bottom of the paper.
+Now, a vector can be drawn by specifying component vectors, each lying along one of the two axis, as shown in figure(\ref{2d}).
 
 \begin{figure}
 	\begin{center}
@@ -56,36 +62,30 @@ In this case we say the vector $\boldsymbol{a}$ is the sum of the vector $\bolds
 
 $\vec{a} = a_1 \hat{x} + a_2 \hat{y}$ is a more explicit way of saying the same thing. In this case $a_1$ and $a_2$ are just numbers, whereas $\hat{x}$ and $\hat{y}$ specify the direction.
 $\hat{x}$ and $\hat{y}$ what we call basis vectors. 
-Basis vectors have unit length so when we write $a_1 \hat{x}$ we are saying that we want to move a length $a_1$ along the $\hat{x}$ direction.
+
+Basis vectors have unit length (are normal vectors)so when we write $a_1 \hat{x}$ we are saying that we want to move $a_1$ unit steps along the $\hat{x}$ direction.
 Notice that $\hat{x}$ and $\hat{y}$ form a right angle, this condition makes these two basis vectors orthonormal.
-When two vectors are orthogonal what we mean to say is that they form right angles. 
-When we say that a vector is a normal vector, usually, one is saying that the length of the vector is unity, that is one (i.e. $\hat{x}$ and $\hat{y}$).
 So orthonormal vectors are normal vectors that are orthogonal to each other.
 Notice how this is a more fundamental description of a vector, we explicitly write the length ($a_1$ and $a_2$) along with the direction ($\hat{x}$ and $\hat{y}$).
 
-The last step, $ < a_1, a_2 > \cdot < \hat{x} , \hat{y} > $ is a somewhat more sophisticated way of again specifying the vector $\boldsymbol{a}$. 
+The last expression, $ < a_1, a_2 > \cdot < \hat{x} , \hat{y} > $, is a somewhat more sophisticated way of again specifying the vector $\boldsymbol{a}$. 
 Here $ < a_1, a_2 >$ is an object by itself, it needs not be specified in a Cartesian plane, it could equally live in a curvilinear plane or any other type of space.
-What $ < a_1, a_2 > \cdot < \hat{x} , \hat{y} > $ is trying to say is that have a vector $ < a_1, a_2 >$ and another vector $ < \hat{x} , \hat{y} > $ and we take their dot product.
-
-The actual definition of the dot product runs backwards, that is $a_1 \hat{x} + a_2 \hat{y} = < a_1, a_2 > \cdot < \hat{x} , \hat{y} >$. We multiply the first component of the first vector with the first component of the second vector and then we add the product of the second component of the first vector with the second component of the second vector and so on for however many components both vectors have.
+What $ < a_1, a_2 > \cdot < \hat{x} , \hat{y} > $ is trying to say is that have a vector $ < a_1, a_2 >$ and another vector $ < \hat{x} , \hat{y} > $ and by taking the dot product between these two we are projecting the first onto a Cartesian plane.
 
 This notion of vectors, normal vectors, basis vectors, and orthogonality can be expanded for any number of dimensions. 
-Of course when working with more than three dimensions it is not as easy to draw!
+Of course when working with more than three dimensions it is not as easy to visualize!
 
 \subsection{Vectors in Quantum Mechanics}
 So here is where vectors come in handy.
 Imagine you go to an ice cream shop. 
-For simplicity, we will only worry about the ice cream flavour and the type of cone.
-This too could be depicted in a vector space, we could then have two orthogonal directions: one for flavour and the other for the type of cone. 
-We could then assign numerical values to the various options, for example in this made up model, the vector describing an vanilla on a waffle cone could be written as follows,
+For simplicity, imagine you are going to a shop where you can only chose one ice cream flavour and the type of cone.
+This too could be depicted in a vector space by using two orthogonal directions: one for flavour and the other for the type of cone. 
+We could then assign numerical values to the various options, for example in this made up model, the vector describing an vanilla on a waffle cone could be represented by 
 $$
-\ket{ice \, cream \, cone} = 3\times\hat{flavour} + 5\times \hat{cone} = 3 \hat{x} + 5 \hat{y}
+\ket{ice \, cream \, cone} = 3\times\hat{flavour} + 5\times \hat{cone} = 3 \hat{x} + 5 \hat{y}.
 $$
 Here $\hat{flavour}$ and $\hat{cone}$ are orthonormal basis vectors and the numerical values correspond to a definite physical state. 
 We used the so-called braket notation, where the $\ket{ice \, cream \, cone}$ denotes a vector.
-
-This sounds like a very strange manner of talking about the physical world, nonetheless I promise you will see the value of this abstraction in what follows.
-
 
 
 \section{Quantum Mechanics}
@@ -97,15 +97,16 @@ The $\ket{  }$ notation by itself refers to the fact that we are dealing with a 
 The Greek letter $\psi$ as usual denotes the state. 
 Going back to the ice cream example $\psi$ could denote the combination of ice cream flavour and the type of cone.
 
-Although, as of right now we have nothing particular in mind for our quantum state. $\psi$ could refer to the position of a particle, whether the particle is standing up or sitting down, whatever we want to describe.
+$\psi$ could refer to the position of a particle, whether the particle is standing up or sitting down, whatever we want to describe.
 
 The other detail to discuss is the equation that tells us how quantum states change.
 This happens to be the famous Schr\"odinger's equation, which looks like this
 \begin{equation}\label{time-dependent}
-H\ket{\psi} = i\hbar \frac{\partial \ket{\psi}}{\partial t}
+H\ket{\psi} = i\hbar \frac{\partial \ket{\psi}}{\partial t}.
 \end{equation} 
 
-One would read equation(\ref{time-dependent}) as follows: the rate of change of the quantum state $\ket{\psi}$ with respect to time is proportional to the product of the Hamiltonian operator acting on the quantum state $\ket{\psi}$.
+So the way in which our quantum state, $\braket{\psi}$, changes in time is governed by the Hamiltonian operator.
+It just so happens that the Hamiltonian corresponds to the energy of our state. 
 
 An operator is just a set of instructions.
 For example, the Hamiltonian of a single electron can be written as
@@ -131,18 +132,19 @@ $$
 
 If we now use the quantum mechanical momentum, we would have
 $$
-E = - \frac{\hbar^2}{m} \frac{\partial^2}{\partial x^2} + V
+E = - \frac{\hbar^2}{m} \frac{\partial^2}{\partial x^2} + V.
 $$
 Which as it turns out looks exactly like the one dimensional Hamiltonian.
 
 \subsection{Time-Independent Schr\"odinger's Equation}
 There is a trick to solving equation(\ref{time-dependent}),
 \begin{equation} \label{tdse}
-H \ket{\Psi} = -\frac{\hbar^2}{m}\nabla^2 \ket{\Psi} + V\ket{\Psi} = i\hbar\frac{\partial\ket{\Psi}}{\partial t}
+H \ket{\Psi} = -\frac{\hbar^2}{m}\nabla^2 \ket{\Psi} + V\ket{\Psi} = i\hbar\frac{\partial\ket{\Psi}}{\partial t}.
 \end{equation}
 
-is by using separation of variable (any quantum mechanics textbook will have the details on this operation, I personally recommend Griffiths.).
-Assume there is a solution $\ket{\Psi}$ to equation(\ref{tdse}) that can be written as $\ket{\Psi(\vec{r},t)} = \ket{\psi(\vec{r})}\ket{\phi(t)}$, which usually works, as long as the potential is not a function of time.
+The trick is to use separation of variable (any quantum mechanics textbook will have the details on this operation, I personally recommend Griffiths).
+Assume there is a solution $\ket{\Psi}$ to equation(\ref{tdse}) that can be written as $\ket{\Psi(\vec{r},t)} = \ket{\psi(\vec{r})}\ket{\phi(t)}$.
+Separation of variables usually works as long as the potential is not a function of time.
 
 This procedure gives us
 $$
@@ -151,15 +153,11 @@ $$
 and the time-independent schr\"odinger equation,
 $$ H\ket{\psi} = E\ket{\psi} $$
 
-Thus, in order to know how a system behaves we need to figure out how to solve the time-independent schr\"odinger equation for a given Hamiltonian which has become an eigenvalue problem.
+Thus, in order to know how a system behaves we need to figure out how to solve the time-independent schr\"odinger equation for a given Hamiltonian. 
 
-\subsubsection{Eigenvalues and Eigenvectors}
-We saw that the time-independent schr\"odinger equation is given by
-$$ H\ket{\psi} = E\ket{\psi} $$
-
-Here $H$ is an operator acting on an eigenvector (or eigenket) $\ket{\psi}$ that equals the energy (eigenvalue) E times the eigenvector $\ket{\psi}$.
-$\ket{\psi}$  are called eigenkets because when $H$ acts on them the result is a number, eigenvalue, time the same eigenket, this is not always the case with operators.
-
+This sort of problems are called eigenvalue problems.
+This is because when the operator $H$ acts on the state $\braket{\psi}$ it returns a number ($E$ is the energy) times the same state $\braket{\psi}$.
+This is not always the case in quantum mechanics.
 
 
 
@@ -169,74 +167,80 @@ The Hamiltonian of a molecule in turn could look something like this,
 \begin{equation} \label{molecule}
 H = -\sum_A \frac{1}{2M_A} \nabla^{2}_{A} -\sum_A \frac{1}{2} \nabla^{2}_{i} +
 \sum_{A>B} \frac{Z_A Z_B}{R_{AB}} - \sum_{Ai} \frac{Z_A}{r_{Ai}} +
-\sum_{i>j} \frac{1}{r_{ij}}
+\sum_{i>j} \frac{1}{r_{ij}}.
 \end{equation}
 Here $i$,$j$ refer to electrons while $A$,$B$ refer to nuclei.
 $r_{ij} = |\vec{r}_i - \vec{r}_j|$ the vector from the source point $j$ to the field point $i$.
 
-Notice that the molecular Hamiltonian in equation(\ref{molecule}) is does not take into account relativistic effects nor spin-orbit effects, it only takes looks at kinetic energy and electrostatic potential energy.
-The reason equation(\ref{molecule}) looks peculiar is because we are using atomic units, as such the kinetic energy becomes
+Notice that the molecular Hamiltonian in equation(\ref{molecule}) is does not take into account relativistic effects nor spin-orbit effects, it only takes into account the electrostatic potential energy.
+If you are looking at this equation thinking it isn't right it is because we are using atomic units.
+For example, the kinetic energy becomes
 $$
 \frac{\hbar^2}{2m_e}\nabla^2 \longrightarrow \frac{1}{2}\nabla^2
 $$
-while the electrostatic energy between two electrons ($Z=1$) looks like
+while the electrostatic energy between two electrons ($Z=1$), in atomic units, looks like
 $$
 \frac{(Ze)(Ze)}{4\pi\epsilon_0} \frac{1}{r_{ij}} \longrightarrow \frac{1}{r_{ij}}
 $$
 
 
 \subsection{Born-Oppenheimer Approximation}
-Now that we have a molecular Hamiltonian, let's try and simplify our problem a bit more.
+Now that we have a molecular Hamiltonian let's try and simplify our problem a bit more.
 Recall that we went from the time-dependent schr\"odinger equation to the time-independent schr\"odinger equation by employing separation of variables (time and space).
 
-If we look at equation(\ref{molecule}) we could try again to separate $\ket{\Psi}$ into nuclear and electronic parts, $\ket{\Psi(\vec{R}, \vec{r})} = \ket{\Psi_N(\vec{R})} \ket{\Psi_e (\vec{r})}$, but
+We could try again to separate $\ket{\Psi}$ into nuclear and electronic parts, $\ket{\Psi(\vec{R}, \vec{r})} = \ket{\Psi_N(\vec{R})} \ket{\Psi_e (\vec{r})}$, but
 $$
 \sum_{Ai} \frac{Z_A}{r_{Ai}}
 $$
 the coupling between electrons and nuclei prevents prevents us from doing so.
 
 Nevertheless we still pursue this separation of variables in what is termed the Born-Oppenheimer Approximation.
-In practice this is valid due to the fact that nuclei are so much more massive than electrons and as such the electrostatic interaction between nuclei and electrons (the termed that prevents a complete separation) is constant fast enough time scales.
+In practice this is valid due to the fact that nuclei are so much more massive than electrons and as such the electrostatic interaction between nuclei and electrons (the termed that prevents a complete separation) is constant for fast enough length scales.
 For the sake of visualization think of it this way: If you are jumping up and down seldom do you need to take into account the momentum change you are imparting upon the entire planet Earth. For the same reason the much more lighter (about 2,000 times) than the nuclei.
 
 Now that we have separated the nuclear from the electronic degrees of freedom we might as well fix the nuclei, $\vec{R}$, at a given position and the solve for $\ket{\Psi_e (\vec{r})}$.
 
-To do this, notice that we can further simplify our problem by rewriting the molecular Hamiltonian as follows,
+First off we want to see how we can separate the molecular Hamiltonian into nuclear and electronic parts.
+The Hamiltonian (equation(\ref{molecule})) can also be written as
 $$
 H = T_{NN} (\vec{R}) + T_{ee} (\vec{r}) + V_{NN} (\vec{R}) + V_{Ne} (\vec{R;r}) + V_{ee} (\vec{r})
 $$
-$e$ refers to electrons and $N$ to nuclei.
+where $e$ refers to electrons and $N$ to nuclei.
 
 First of all, the nuclear kinetic energy, $T_{NN}$, is a lot smaller than the electronic kinetic energy,$T_{ee}$, by the ratio of the electron's mass to the nuclear mass $m_e/M_A$.
-Also, $V_{NN}$ is just a constant value, it will only shift the eigenvalues, energies by a constant amount.
+Also, $V_{NN}$ is just a constant value, it will only shift the eigenvalues (energies) by a constant amount.
 So for a fixed nuclear configuration, we obtain the electronic Hamiltonian,
 
 $$
 H_{e} =  T_{ee} (\vec{r}) + V_{Ne} (\vec{R;r}) + V_{ee} (\vec{r})
 $$
 
-so that our equation to solve becomes
+so the equation we need to solve is
 $$
-H_e \ket{\psi_e} = E_e \ket{\psi_e}
+H_e \ket{\psi_e} = E_e \ket{\psi_e}.
 $$
+
+Nuclear dynamics can be solved for in a similar manner or one may even use classical mechanics in some cases.
 
 
 \subsection{Orbitals}
 In order to simplify our eigenvalue problem we will expand $\ket{\psi_e}$, our electronic wavefunction, in terms of one-electron functions, the so called orbitals.
-A useful kind of orbital is a spin orbitals, which take into account the spin of a given electron.
+Orbitals are either spatial orbitals (electrons with no spin) or spin orbitals (electrons with spin).
 We can then express the orbital $\ket{\chi}$ as,
 $$ \ket{\chi} = \ket{\psi (\vec{r})} \ket{s} $$
+$\braket{s}$ being the spin of the electron.
 
-Notice that spatial orbitals are doubly occupied, a given spatial orbital $\ket{\psi (\vec{r})}$ can either have a spin up or a spin down.
+Spatial orbitals are doubly occupied, a given spatial orbital $\ket{\psi (\vec{r})}$ can either have a spin up or a spin down.
 
-Later on we will talk about Unrestricted Hartree-Fock methods which utilize spatial orbitals that are singly occupied, only one spatial orbital for a given spin.
+Later on we will talk about Unrestricted Hartree-Fock methods which utilize spatial orbitals that are singly occupied (only one spatial orbital for a given spin).
 
 \subsection{Electronic Wavefunction}
-Because we are solely interested in chemistry our focus will be mostly upon fermions for which the total wavefunction $\ket{\psi_e}$ must be antisymmetric. 
+We now need to apply another condition to our wave function, this the condition of antisymmetry.
+Fermions need to have an antisymmetric wave function $\ket{\Psi_e}$, 
 $$ \ket{\Psi_e\left(1,...,i, j,...,n \right)} = - \ket{\Psi_e\left(1,...,j, i,...,n \right)} $$
-Each index in the wavefunction represents an electron with spatial coordinates and spin.
+each index in the wave function represents an electron with spatial coordinates and spin.
 
-The way of obtaining antisymmetry is by writing the electronic wave function as a slater determinants of orbitals:
+The way of obtaining antisymmetry is by writing the electronic wave function as a slater determinants of orbitals (an orbital per column and an electron per row):
 
 $$
 \ket{\psi_i} = \ket{\chi_1 \chi_2 \chi_3 ...}  =
@@ -249,36 +253,29 @@ $$
 \end{vmatrix}
 $$
 
-The number of orbitals in a Slater determinant equals the number of electrons.
+The number of orbitals in a slater determinant equals the number of electrons.
 Furthermore, any N-electron wave function can be expressed exactly as a linear combination of all possible N-electron slater determinants formed from a complete set of spin orbitals.
 
-We can in turn express quantities in terms of slater determinants,
+What we gain is that we can express our solution in terms of slater determinants,
 $$ \ket{\Psi} = \sum_i c_i \ket{\psi_i} $$
 
-where the sum runs over all the possible N-electron slater determinants, which will be infinite if we have a complete set of spin orbitals $\ket{\chi}$.
+the sum runs over all the possible N-electron slater determinants, which will be infinite if we have a complete set of spin orbitals $\ket{\chi}$.
 
 
 
 \section{The Hartree-Fock Method}
-Summarizing the procedure for doing quantum mechanical calculations is as follows:
+Summarizing our steps towards a solution of the electronic wave functions,
 \begin{enumerate}
 \item Invoke the Born-Oppenheimer approximation.
 \item Solve the Electronic Schr\"odinger equation.
 \item Solve the for Nuclear motion (via quantum or classical mechanics).
 \end{enumerate}
 
-This just begs the question, how do we actually solve the electronic Schr\"odinger equation.
-The answer to this is the base of the Hartree-Fock method which is by assuming the electronic wave function can be approximated by a product of orbitals.
-This takes us back to the use slater determinants as a basis.
-
-\subsection{The Variational Method}
-So we build an initial electronic wave function by a product of orbitals.
-We will vary the orbitals until the electronic energy reaches a minimum.
-
-
+Although this begs the question, how do we actually solve the electronic Schr\"odinger equation.
+An answer to this is by using the Hartree-Fock method which is the subject of this post.
 
 \subsection{The HF Method}
-Adding thee two last steps we obtain the Hartree-Fock method
+Actually there are a couple things that we need to add to our previous algorithm, these assumptions are the basis of the HF procedure,
 \begin{enumerate}
 \item Invoke the Born-Oppenheimer approximation.
 \item Solve the Electronic Schr\"odinger equation.
@@ -291,67 +288,58 @@ Adding thee two last steps we obtain the Hartree-Fock method
 
 
 \subsection{Orbitals in HF}
-In the same manner that one can write the exact wave function as a linear combination of orbitals to simplify calculations, we will use orbitals that are linear combinations of basis functions, $\ket{\xi}$,
+In the same manner that one can write the exact wave function as a linear combination of orbitals to simplify calculations, we will use orbitals that are linear combinations of basis functions, $\ket{\tilde{x}}$ (i.e. 6-31G*),
 $$
-\ket{\chi_i} = \sum c_j \ket{\tilde{x}}
+\chi_i = \ket{\chi_i} = \sum c_j \ket{\tilde{x}}
 $$
 This is commonly referred to as the Linear Combination of Atomic Orbitals Molecular Orbital (LCAO-MO) theory 
 
 There are two types of basis functions.
 Normally physicist use plane-waves (periodic systems) whereas chemist tend to use atom centred Gaussian functions (molecules).
 
-\subsection{Problems with HF}
-The HF method is what is called a mean-field approximation, that is, each electron interacts only with the average electron cloud of the other electrons.
-This is due to the fact that we use a single slater determinant for our wave function.
-To solve this one needs to refer to density functional theory and other methods that take into correlation between electrons.
-
-Other problems that come into play are due to the finite size of the basis sets we utilized as orbitals.
-
-In mind, HF is usually a poor choice for excited states, bond breaking, transition metals with unfilled d and f shells, and diradicals. 
-
-\subsubsection{Some Terminology}
-\textbf{Restricted HF Method: } The system of study has a closed-shell with all orbitals doubly occupied.
-
-\textbf{Restricted Open-Shell HF Method: } The system of study has an open-shell with all orbitals doubly occupied.
-
-\textbf{Unrestricted HF Method: } As mentioned previously, for this method all orbitals are singly occupied.
-
+The rest of the HF method relies on solving the HF equations in order to solve the electronic eigenvalue problem.
 
 \section{Computation}
+In this section I will describe how to carry out the Hartree-Fock-Roothan procedure using Python 3.
+The code can be found at:
+
+\url{https://github.com/alejandrox1/blog/tree/master/HF/code}. 
+
 \subsection{More Notation}
-Like always we hope to simplify our problems as much as possible by introducing notation.
-We start by defining the one electron operator
+Let's start by defining the one electron operator
 $$
 h(i) = -\frac{1}{2}\nabla^{2}_{i} - \sum_A \frac{Z_A}{R_{iA}}
 $$
 and the two electron operator
 $$
-v(ij) = \frac{1}{r_{ij}}
+v(ij) = \frac{1}{r_{ij}}.
 $$
 
 Using this new notation we can rewrite our electronic Hamiltonian as,
 $$
 H_{e} = \sum_i h(i) + \sum_{i<j} v(i,j) 
 $$
+$i$ and $j$ denoting electrons.
 
 and the energy becomes
 \begin{dmath} \label{H}
 E = \sum_i \bra{i}h\ket{i} + \frac{1}{2}\sum_{ij} \braket{ij || ij}
 = \sum_i \bra{i}h\ket{i} + \frac{1}{2}\sum_{ij} \left( \braket{ij|ij} - \braket{ij|ji} \right)
-= \sum_i \bra{i}h\ket{i} + \frac{1}{2}\sum_{ij} \left( \left[ii|jj\right] - \left[ij|ji\right]\right)
+= \sum_i \bra{i}h\ket{i} + \frac{1}{2}\sum_{ij} \left( \left[ii|jj\right] - \left[ij|ji\right]\right).
 \end{dmath}
-using chemist notation, where 
+
+We will use the chemist notation, where
 $$
 \braket{ik|jl} = \left[ij|kl\right] = \int d\vec{x_1}d\vec{x_2} \, \chi^{*}_{i}(\vec{x_1}) \chi_{j}(\vec{x_1}) \left(\frac{1}{r_{12}}\right) \chi^{*}_{k}(\vec{x_2}) \chi_{l}(\vec{x_2})
 $$
 and
 $$
-\bra{i}h\ket{i} = \int d\vec{x_1} \, \chi^{*}_{i} (\vec{x_1}) h(\vec{r_1}) \chi_{j} (\vec{x_1}) 
+\bra{i}h\ket{i} = \int d\vec{x_1} \, \chi^{*}_{i} (\vec{x_1}) h(\vec{r_1}) \chi_{j} (\vec{x_1}).
 $$
 
 
 \subsection{Hartree-Fock Equations}
-All we have to do now is use the variational principle. 
+The next step is to use the variational principle. 
 We look for the orbitals that will minimize the energy while keeping the orbitals orthonormal.
 For this purpose we utilize the method of Lagrange multipliers by defining the quantity
 $$
@@ -363,20 +351,21 @@ $$
 \braket{i | j} = \int d\vec{x} \, \chi^{*}_{i} (\vec{x_1}) \chi^{}_{j} (\vec{x_1})
 $$
 
-\begin{equation} \label{deriv}
+This procedure will give us the Hartree-Fock equations (which are derived in the next section)
+
+\begin{dmath} \label{deriv}
 h(\vec{x_1}) \chi^{}_{i} (\vec{x_1}) + 
 \sum_{j\neq i} \left( \int d\vec{x_2} \, \big| \chi_{j} (\vec{x_2}) \frac{1}{r_{12}}\big|^2 \right) \chi_{i} (\vec{x_1}) -
 \sum_{j\neq i} \left( \int d\vec{x_2} \, \chi^{*}_{j} (\vec{x_2}) \chi_i (\vec{x_2})  \frac{1}{r_{12}} \right) \chi_{j} (\vec{x_1})
-= \epsilon_{ij} \chi_{j} (\vec{x_1})
-\end{equation}
+= \epsilon_{ij} \chi_{j} (\vec{x_1}).
+\end{dmath}
 
-Defining the Coulomb operator $\mathcal{J}_i$ and the exchange operator $\mathcal{K}_i$
+Now define the Coulomb operator $\mathcal{J}_i$ and the exchange operator $\mathcal{K}_i$, so that equation(\ref{deriv}) becomes
 \begin{equation} \label{hf2}
-\left( h(\vec{x_1}) + \sum_{j\neq i}\left[ \mathcal{J}_i(\vec{x_1}) - \mathcal{K}_i(\vec{x_1}) \right] \right)
-= \epsilon_{ij} \chi_{j} (\vec{x_1})
+\left( h(\vec{x_1}) + \sum_{j\neq i}\left[ \mathcal{J}_i(\vec{x_1}) - \mathcal{K}_i(\vec{x_1}) \right] \right)\chi_{j}(\vec{x_1})
+= \epsilon_{ij} \chi_{j} (\vec{x_1}).
 \end{equation}
 
-These operators are called as such because of their functional forms.
 $\mathcal{J}_i$ corresponds to the average Coulomb interaction between the orbital $\chi_i$ and all other electrons
 $$
 \mathcal{J}_i (\vec{x_i}) =
@@ -385,7 +374,7 @@ $$
 
 On the other hand, the exchange operator comes from the antisymmetry requirement of the total wave function. The name is due to the fact that it looks like the Coulomb operator if you exchange the orbital $\chi_i$ for $\chi_i$.
 $$
-\mathcal{K}_i(\vec{x_1}) \chi_{j} (\vec{x_1}
+\mathcal{K}_i(\vec{x_1}) \chi_{j} (\vec{x_1}) =
 \left( \int d\vec{x_2} \, \chi^{*}_{j} (\vec{x_2}) \chi_i (\vec{x_2})  \frac{1}{r_{12}} \right) \chi_{j} (\vec{x_1})
 $$
 
@@ -403,15 +392,14 @@ The HF equation can either be solved exactly (exact HF), or by introducing a set
 In the case of HFR equations, the solutions depend on the orbitals used.
 This is the reason that the HFR method is called a self-consistent field (scf) approach.
 
-We will then proceed with the HFR method.
-First of all we denote the atomic orbital basis functions by $\tilde{\chi}$, so that
+We will then proceed with the HFR method, denoting the atomic orbital basis functions by $\tilde{\chi}$, so that
 $$
 \chi_{j} = \sum^{K}_{\nu} C_{\nu i} \tilde{\chi}_{\nu}
 $$
 
 Hence, for each orbital $i$ we have
 $$
-f(\vec{x_1}) \sum_{\nu} C_{\nu i} \tilde{\chi}_{\nu}(\vec{x_1}) = \epsilon_i \sum_{\nu} C_{\nu i} \tilde{\chi}_{\nu}(\vec{x_1})
+f(\vec{x_1}) \sum_{\nu} C_{\nu i} \tilde{\chi}_{\nu}(\vec{x_1}) = \epsilon_i \sum_{\nu} C_{\nu i} \tilde{\chi}_{\nu}(\vec{x_1}).
 $$
 
 Taking this previous expression, multiplying by $\tilde{\chi}^{*}_{\mu} (\vec{x_1})$ and integrating with respect to $\vec{x_1}$, we have
@@ -423,13 +411,13 @@ $$
 $$
 \sum_\nu F_{\mu\nu} C_{\nu i} = \epsilon_i \sum_\nu S_{\mu\nu} C_{\nu i}
 $$
-where, $F$ is called the Fock matrix 
+where, $F$ is called the Fock matrix ,
 $$
  F_{\mu\nu} = \int d\vec{x_1} \, \tilde{\chi}^{*}_{\mu}(\vec{x_1}) f(\vec{x_1}) \tilde{\chi}_{\nu}(\vec{x_1})
 $$
-and $S$ is the overlap matrix
+and $S$ is called the overlap matrix,
 $$
-S_{\mu\nu} = \int d\vec{x_1} \, \tilde{\chi}^{*}_{\mu}(\vec{x_1}) \tilde{\chi}_{\nu}(\vec{x_1})
+S_{\mu\nu} = \int d\vec{x_1} \, \tilde{\chi}^{*}_{\mu}(\vec{x_1}) \tilde{\chi}_{\nu}(\vec{x_1}).
 $$
 
 In vector notation we have,
@@ -438,27 +426,29 @@ In vector notation we have,
 \end{equation}
 Here $\boldsymbol{\epsilon}$ is a diagonal matrix containing the orbital energies $\epsilon_i$.
 Notice that equation(\ref{HF}) is almost an eigenvalue problem except for the overlap matrix \textbf{S}.
-In order to deal with this problem we apply a basis transformation to go from an orthogonal basis where we can get rid of \textbf{S}.
+In order to deal with this problem we apply a basis transformation to go to an orthogonal basis where we can get rid of \textbf{S}.
 
 
 \subsection{Derivation of the Hartree-Fock Equations}
-In the previous section we presented equation(\ref{deriv}) without derivation, here we will derive them.
+In the previous section we presented equation(\ref{deriv}) without derivation, so we will derive it now.
 Again, we use the method of Lagrange multipliers to minimize the electronic energy with respect to the orbitals while keeping these orthonormal,
 $$
-\mathcal{L} \left[ \{ i \}\right] =  E_{hf} \left[\{i\}\right] - \sum_{ij} \epsilon_{ij} \left(\braket{i | j} - \delta_{ij} \right)
+\mathcal{L} \left[ \{ i \}\right] =  E_{hf} \left[\{i\}\right] - \sum_{ij} \epsilon_{ij} \left(\braket{i | j} - \delta_{ij} \right).
 $$
 
-We are interested then in calculating
+We want to minimize the Lagrangian by finding a set of orbitals such that
 $$
-\delta \mathcal{L}_i \left[ \{i\} \right] = 0
+\delta \mathcal{L}_i \left[ \{i\} \right] = 0.
 $$
-We want to find a minimum for our Lagrangian. 
-We will do this by linearly varying the orbitals $\chi_i$, that is $\chi_i = \chi_i \rightarrow \delta\chi_i$, while keeping only terms of first order in $\delta\chi_i$.
+
+We will linearly vary the orbitals $\chi_i$, that is, $\chi_i = \chi_i \rightarrow \delta\chi_i$, while keeping only terms of first order in $\delta\chi_i$.
 
 From here on we will change notation, the orbital $\chi_i$ will solely be denoted by $i$.
 So let's go term by term.
 
-First of, looking at the constraint $\epsilon_{ij} \left(\braket{i | j} - \delta_{ij} \right)$ the only term that will be affected upon $i \rightarrow i + \delta i $ is $\braket{i | j}$.
+
+
+First off, looking at the constraint $\epsilon_{ij} \left(\braket{i | j} - \delta_{ij} \right)$ the only term that will be affected upon $i \rightarrow i + \delta i $ is $\braket{i | j}$.
 We will only keep terms linear on $\delta i$, so
 \begin{equation}\label{d2}
 \braket{i | j} \rightarrow \braket{\delta i | j} + \braket{i | \delta j}
@@ -477,46 +467,50 @@ from equation(\ref{H}), one can clearly see that
 \end{split}
 \end{equation}
 
-At this point is where the ricks come in.
-look at equations (\ref{d1}) and (\ref{d2}), there is a symmetry between the terms.
+Look at equations (\ref{d1}) and (\ref{d2}), there is a symmetry between the terms in each.
 Let's make it clearer by playing around with equation(\ref{d2}), this time we will include the summation and the Lagrange multipliers, so we have,
-$$
-\sum_{ij} \epsilon_{ij} \left( \braket{\delta i | j} + \braket{i | \delta j} \right)
-$$
+\begin{equation} \label{lagrange}
+\sum_{ij} \epsilon_{ij} \left( \braket{\delta i | j} + \braket{i | \delta j} \right).
+\end{equation}
+
 
 Let's begin with the second term,
 $$
-\sum_{ij} \epsilon_{ij} \braket{i | \delta j} = \left[ \sum_{ij} \epsilon^{*}_{ij} \braket{i | \delta j}^* \right]^*
+\sum_{ij} \epsilon_{ij} \braket{i | \delta j} = \left[ \sum_{ij} \epsilon^{*}_{ij} \braket{i | \delta j}^* \right]^* ,
 $$
 surely taking a double complex conjugate doesn't hurt, it gives us what we started with.
 Now, because we are summing over $i$ and $j$ it is our right to change the names of the dummy variables if we so desire. So we will change $i$ to $j$ and $j$ to $i$,
 $$
-\left[ \sum_{ij} \epsilon^{*}_{ij} \braket{i | \delta j}^* \right]^* = \left[ \sum_{ij} \epsilon^{*}_{ji} \braket{j | \delta i}^* \right]^*
+\left[ \sum_{ij} \epsilon^{*}_{ij} \braket{i | \delta j}^* \right]^* = \left[ \sum_{ij} \epsilon^{*}_{ji} \braket{j | \delta i}^* \right]^* .
 $$
-There is another thing that comes in handy, turns out that \textbf{$\epsilon$} is a hermitian matrix, and so
+Also, it turns out that \textbf{$\epsilon$} is a hermitian matrix, so
 $$
 \left[ \sum_{ij} \epsilon^{*}_{ij} \braket{i | \delta j}^* \right]^* = 
 \left[ \sum_{ij} \epsilon_{ij} \braket{j | \delta i}^* \right]^* =
-\left[ \sum_{ij} \epsilon_{ij} \braket{\delta i | j} \right]^*
+\left[ \sum_{ij} \epsilon_{ij} \braket{\delta i | j} \right]^* .
 $$
 
-So after all that work we ended up with a term that is the complex conjugate of the first term in $\sum_{ij} \epsilon_{ij} \left( \braket{\delta i | j} + \braket{i | \delta j} \right)$
+Look at this, the second term in equation(\ref{lagrange}) is the complex conjugate of the first term.
 
 From equation(\ref{d1}), we can see that we have a similar set up in $\sum_i \left( \braket{\delta i | h | i} + \braket{i|h|\delta i} \right)$, for $h$ is a hermitian matrix and so $\braket{i|h|\delta i}$ is the complex conjugate of $\braket{\delta i | h | i}$.
+
+
+
 
 As it turns out, the same thing happens for the rest of the terms in equation(\ref{d1}).
 You can check this yourself by noting that because
 $$
-[\delta ij | kl] = \int d\vec{x_1} d\vec{x_2} \, \delta i^{*}(\vec{x_1}) j(\vec{x_1}) \left(\frac{1}{r_{12}}\right) k^{*}(\vec{x_2}) l(\vec{x_2})
+[\delta ij | kl] = \int d\vec{x_1} d\vec{x_2} \, \delta i^{*}(\vec{x_1}) j(\vec{x_1}) \left(\frac{1}{r_{12}}\right) k^{*}(\vec{x_2}) l(\vec{x_2}),
 $$
 
-the complex conjugate would be,
+then the complex conjugate of this quantity would be,
 $$
 \int d\vec{x_1} d\vec{x_2} \, j^{*}(\vec{x_1}) \delta i(\vec{x_1}) \left(\frac{1}{r_{12}}\right) l^{*}(\vec{x_2}) k(\vec{x_2})
-= [j \delta i| lk]
+= [j \delta i| lk] .
 $$
 
-and so from equation(\ref{d1}), the two electron terms are
+
+From equation(\ref{d1}), the two electron terms are
 \begin{equation} \label{ex1}
 \frac{1}{2}\sum_{ij} \left( [\delta i i | jj] + [i \delta i | jj] + [i i |\delta jj] + [ii | j\delta j]\right)
 \end{equation}
@@ -528,8 +522,10 @@ and
 Before we begin simplifying these two equations recall that chemist notation has an eight-fold symmetry.
 For example, if we have $[ij|kl]$, this can be written as
 $$
-[ij|kl] = [kl|ij] = [kl|ij] = [ji|kl] = [ij|lk] = [ji|lk] = [lk|ji] = [lk|ij]
+[ij|kl] = [kl|ij] = [kl|ij] = [ji|kl] = [ij|lk] = [ji|lk] = [lk|ji] = [lk|ij].
 $$
+
+
 
 Starting with the first term of equation(\ref{ex1}),
 $$
@@ -541,32 +537,37 @@ $$
 $$
 and because we are free to rename dummy indices due to the fact that we are summing with respect to $i$ and $j$,
 $$
-[\delta i i | jj]^* \rightarrow [i\delta i | jj] \rightarrow [jj | i\delta i]  \rightarrow [ii| j\delta j]
+[\delta i i | jj]^* \rightarrow [i\delta i | jj] \rightarrow [jj | i\delta i]  \rightarrow [ii| j\delta j].
 $$
-So we started with the complex conjugate of the first term in equation(\ref{ex1}) and ended with the fourth term of the same equation.
+
+We started with the complex conjugate of the first term in equation(\ref{ex1}) and ended with the fourth term of the same equation.
 You can do the same for the second term, it will turn out to be the complex conjugate of the third term
 $$
-[i \delta i | jj]^* \rightarrow [\delta i i|jj] \rightarrow [jj|\delta ii] \rightarrow [ii|\delta jj]
+[i \delta i | jj]^* \rightarrow [\delta i i|jj] \rightarrow [jj|\delta ii] \rightarrow [ii|\delta jj].
 $$
-Rewriting equation(\ref{ex1}),
-\begin{equation}
+We can now write equation(\ref{ex1}) as
+\begin{equation} \label{eq1}
 \frac{1}{2}\sum_{ij} \left( [\delta i i | jj] + [i \delta i | jj]\right) + c.c.
 \end{equation}
-using $[ij|kl] = [ji|kl]$, we get
+where $c.c.$ stands for the complex conjugate terms.
+using $[ij|kl] = [ji|kl]$, we can further simplify equation(\ref{eq1}),
 \begin{equation}
 \sum_{ij} [\delta i i | jj]  + c.c.
 \end{equation}
 
-Doing the same for equation(\ref{ex2}), beginning with $[\delta i j | ji]$,
+
+
+Doing the same for equation(\ref{ex2}), beginning with $[\delta i j | ji]$ and $[i \delta j | ji]$, we get
 $$
-[\delta i j | ji] \rightarrow [j\delta i|ij] \rightarrow [ij|j\delta i] 
+[\delta i j | ji] \rightarrow [j\delta i|ij] \rightarrow [ij|j\delta i] ,
 $$
 and
 $$
-[i \delta j | ji] \rightarrow [\delta j i| ij] \rightarrow [ij|\delta j i] 
+[i \delta j | ji] \rightarrow [\delta j i| ij] \rightarrow [ij|\delta j i] ,
 $$
 
-this time no remaining. We can now rewrite equation(\ref{ex2})
+this time there is no need of renaming.
+We can now rewrite equation(\ref{ex2}) as
 $$
 \frac{1}{2}\sum_{ij} \left( [\delta i j | ji] + [i \delta j | ji]\right) + c.c.
 $$
@@ -580,7 +581,9 @@ And thus we obtain
 \sum_{ij}  [\delta i j | ji]  + c.c.
 \end{equation}
 
-Putting everything together,
+
+
+Putting everything together, we have,
 \begin{equation} \label{hf-full}
 \delta \mathcal{L} = \sum_i \braket{\delta i|h|i} + \sum_{ij} \left([\delta i i | jj] - [\delta i j | ji]\right) - \sum_{ij} \epsilon_{ij} \braket{\delta i|j} + c.c. = 0
 \end{equation}
@@ -591,13 +594,24 @@ Writing equation(\ref{hf-full}) out
 \sum_{ij} \left( \int d\vec{x_1}d\vec{x_2} \, \delta\chi^{*}_{i}(\vec{x_1})\chi_i(\vec{x_1}) \left(\frac{1}{r_{12}}\right) \chi^{*}_{j}(\vec{x_2})\chi_j(\vec{x_2}) 
 - \int d\vec{x_1} d\vec{x_2} \, \delta\chi^{*}_{i}(\vec{x_1})\chi_j(\vec{x_1}) \left(\frac{1}{r_{12}}\right) \chi^{*}_{j}(\vec{x_2})\chi_i(\vec{x_2}) \right) - \sum_{ij} \epsilon_{ij} \int d\vec{x_1} \delta\chi_{i}^{*}(\vec{x_1}) \chi_j (\vec{x_1}) + c.c.
 \end{dmath}
-or
+or equivalently,
 \begin{dmath}
 \delta \mathcal{L} = 0 = \sum_i \int d\vec{x_1} \, \delta\chi_{i}^{*}(\vec{x_1}) \left[ h\chi_i(\vec{x_1}) +
 \sum_{j} \left( \chi_i(\vec{x_1}) \int d\vec{x_2} \, \left(\frac{1}{r_{12}}\right) \chi^{*}_{j}(\vec{x_2})\chi_j(\vec{x_2}) -
 \chi_j(\vec{x_1}) \int d\vec{x_2} \, \left(\frac{1}{r_{12}}\right) \chi^{*}_{j}(\vec{x_2})\chi_i(\vec{x_2}) \right) - 
  \sum_{j} \epsilon_{ij} \chi_j (\vec{x_1}) \right] + c.c.
 \end{dmath}
+
+$\delta\chi_{i}^{*}$ is arbitrary, so it is the quantity inside the brackets that must be zero for any orbital $i$.
+The HF equations are obtained by rearranging the term in brackets,
+\begin{dmath}
+\left[ h\chi_i(\vec{x_1}) +
+\sum_{j\neq i} \chi_i(\vec{x_1}) \left( \int d\vec{x_2} \, \left(\frac{1}{r_{12}}\right) \chi^{*}_{j}(\vec{x_2})\chi_j(\vec{x_2}) \right) -
+\sum_{j\neq i} \chi_j(\vec{x_1}) \left(  \int d\vec{x_2} \, \left(\frac{1}{r_{12}}\right) \chi^{*}_{j}(\vec{x_2})\chi_i(\vec{x_2}) \right) \right] =
+ \sum_{j} \epsilon_{ij} \chi_j (\vec{x_1}) 
+\end{dmath}
+
+Which are the HF equation we derived in the previous section.
 
 \subsection{Solving the Hartree-Fock-Roothan Equations}
 \subsubsection{Input}
@@ -626,7 +640,7 @@ $$
 =  h(\vec{x_1})\chi_i(\vec{x_1}) + \sum \left(\chi_i(\vec{x_1}) \int d\vec{x_2} \, \Big|\chi_j(\vec{x_2}) \frac{1}{r_12}\Big| -
 \chi_j(\vec{x_1})\int d\vec{x_2} \, \chi^{*}_{j}(\vec{x_2})\chi_i(\vec{x_2})\frac{1}{r_{12}} \right) 
 $$
-In order to obtain these we will read them from text files.
+In order to obtain these we will read the necessary information from text files.
 The overlap matrix can be found in 's.dat', the nuclear repulsion integrals in 'enuc.dat'.
 The rest of the information needed to construct the matrix \textbf{F} can be obtained from the kinetic energy integrals 't.dat', the potential energy integrals 'v.dat', and the two electron integrals 'eri.dat'.
 
@@ -638,20 +652,22 @@ Our first objective is to transform equation(\ref{HFR}) into an eigenvalue probl
 We need to diagonalize the overlap matrix \textbf{S}. 
 We do this by solving
 $$
-S L_S = \Lambda_S L_S
+S L_S = \Lambda_S L_S.
 $$
 $\Lambda_S$ is a diagonal matrix of eigenvalues and $L_S$ is the corresponding matrix of eigenvectors.
 The eigenvector matrix should obey the condition
 $$
-L_S L^{T}_{S} = \boldsymbol 1
+L_S L^{T}_{S} = \boldsymbol 1.
 $$
 
 Once this is done, we can build the $ S^{-1/2}$ matrix, defined as 
 $$
-S^{-1/2} = L_S \Lambda^{-1/2} L^{T}_{S}
+S^{-1/2} \equiv L_S \Lambda^{-1/2} L^{T}_{S}.
 $$
 
-From equation(\ref{HFR}) assume that there exists a new matrix \textbf{C}, such that
+
+
+To see how this works, from equation(\ref{HFR}) assume that there exists a new matrix \textbf{C}, such that
 $$
 C^' = X^{-1} C
 $$
@@ -661,7 +677,7 @@ C = X C^'
 $$
 so that equation(\ref{HFR}) becomes
 $$
-F X C^' = SXC^' \epsilon
+F X C^' = SXC^' \epsilon.
 $$
 If we multiply both sides by $X^{-1}$ and define
 $$
@@ -670,10 +686,13 @@ $$
 
 then we can write equation(\ref{HFR}) as 
 $$
-F^' C^' = C^' \epsilon
+F^' C^' = C^' \epsilon.
 $$
 
+As it turns out $X \equiv S^{-1/2}$.
+
 \subsubsection{Self-Consistent Field Iteration}
+For the actual implementation of the HF procedure see \texttt{hf.py}.
 \begin{itemize}
 \item Begin by calculating the Fock matrix:
 \begin{verbatim}
@@ -740,4 +759,28 @@ $$
 $i$ denotes the iteration.
 
 \end{itemize}
+
+
+\section{Some Other Details}
+I want to mention some terminology that quantum chemists use:
+in a restricted HF method the system of study has a closed-shell with all orbitals doubly occupied.
+For a restricted open-shell HF method the system of study has an open-shell with all orbitals doubly occupied.
+Lastly, for an unrestricted HF method, as mentioned previously, all orbitals are singly occupied.
+
+The HF method is what is called a mean-field approximation, that is, each electron interacts only with the average electron cloud of the other electrons. The HF method can also be viewed as the lowest order perturbation expansion with respect to interactions between electrons.
+This is due to the fact that we use a single slater determinant for our wave function.
+To solve this one needs to refer to density functional theory and other methods that take into correlation between electrons.
+
+It is worth mentioning that HF usually struggles with transition metals, diradicals and breaking of bonds.
+Otherwise, HF provides relatively good geometries and energies but is very poor when trying to obtain vibrational frequencies.
+
+
+\section{References}
+\begin{itemize}
+\item For more background in quantum mechanics see David J. Griffiths "Introduction to Quantum Mechanics, 2nd ed.".
+\item These notes are based on : notes compiled by the Sherill group (\url{http://vergil.chemistry.gatech.edu/notes/}) and on Attila Szabo, Neil S. Ostlund " Modern Quantum Chemistry: Introduction to Advanced Electronic Structure Theory (Dover Books on Chemistry)". 
+
+
+\end{itemize}
+
 \end{document}
