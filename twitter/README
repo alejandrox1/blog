@@ -1,0 +1,5 @@
+Twitter Mining
+
+config.py			Contains secret and access token.
+get_user_tweets.py		Return all the tweets from a given user, if they are about a specific topic.
+Mystreamer.py			Listen to a trending to a topic.
