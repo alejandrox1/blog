@@ -1,0 +1,10 @@
+A short tutorial on using:
+	Matplotlib/pylab
+	Numpy
+	Pandas
+
+As of (Fri Jul 22 21:13:40 EDT 2016) I am not I quite done.
+I will keep adding more examples, fancier data managing using Pandas and
+some performance tips using Numpy.
+
+
