@@ -1,4 +1,5 @@
 Twitter Mining
+Based on: https://marcobonzanini.com/2015/03/02/mining-twitter-data-with-python-part-1/
 
 config.py			Contains secret and access token.
 get_user_tweets.py		Return all the tweets from a given user, if they are about a specific topic.
